@@ -11,10 +11,10 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react';
-
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Importando o axios para fazer a requisição
 
-function App() {
+function Step8() {
   // Variáveis de estado para o step 8
   const [valuation, setValuation] = useState('');
   const [capTableSocios, setCapTableSocios] = useState('');
@@ -28,12 +28,37 @@ function App() {
 
   const navigate = useNavigate();
 
+  // Função para enviar os dados do Step 8
+  const submitStep8Data = async () => {
+    const data = {
+      usuario_id: 1, // Ajuste conforme necessário
+      valuation,
+      cap_table_socios: capTableSocios,
+      estrategia_saida: estrategiaSaida,
+      alocacao_recursos: alocacaoRecursos,
+      pitch_link: pitchLink,
+    };
+    console.log("Enviando os dados do Step 8:", data); // Verifique se os dados estão corretos
+
+    try {
+      const response = await axios.post('http://127.0.0.1:3333/formulario/step8', data);
+      console.log('Dados enviados com sucesso:', response.data);
+      navigate('/Step9'); // Navega para o Step9 após o sucesso
+    } catch (error) {
+      console.error('Erro ao enviar os dados:', error);
+      if (error.response) {
+        // Caso o erro seja uma resposta do servidor (erro 400, 500, etc)
+        console.error('Resposta do erro:', error.response);
+      }
+    }
+  };
+
   const nextStep = () => {
-    navigate('/Step9'); // Navega para o Step3
+    submitStep8Data(); // Envia os dados antes de navegar para o próximo step
   };
 
   const prevStep = () => {
-    navigate('/Step7'); // Retorna para o Step1
+    navigate('/Step7'); // Retorna para o Step7
   };
 
   return (
@@ -161,4 +186,4 @@ function App() {
   );
 }
 
-export default App;
+export default Step8;

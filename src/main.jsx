@@ -8,6 +8,12 @@ import TemplateReport from './TemplateReport.jsx';
 import TodasInformacoes from './TodasInformacoes.jsx';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+
+import Register from '../src/pages/Login/Registro.jsx';
+import Login from '../src/pages/Login/Login.jsx';
+import LoginAdm from '../src/pages/Login/LoginAdm.jsx';
+
 import Step1 from './pages/Steps/Step1.jsx'
 import Step2 from './pages/Steps/Step2.jsx'
 import Step3 from './pages/Steps/Step3.jsx'
@@ -21,12 +27,13 @@ import Step9 from './pages/Steps/Step9.jsx'
 import Perguntas from './Perguntas';
 import Formulario from "./FormularioPerguntas";
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ChakraProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
+
           <Route path="/template" element={<Template />} />
           <Route path="/lista" element={<Lista />} />
           <Route path="/report" element={<Report />} />
@@ -34,6 +41,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/todas-informacoes/:id" element={<TodasInformacoes />} />
           <Route path="/perguntas" element={<Perguntas />} />
           <Route path="/formularioPerguntas" element={<Formulario />} />
+
+
+          <Route path="/registro" element={<Register />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/LoginAdm" element={<LoginAdm />} />
+
           <Route path="/Step1" element={< Step1/>} />
           <Route path="/Step2" element={< Step2/>} />
           <Route path="/Step3" element={< Step3/>} />
