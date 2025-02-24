@@ -1,27 +1,31 @@
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import {
-  Flex,
   Box,
-  Center,
+  Input,
+  Button,
+  VStack,
+  Text,
+  Container,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  IconButton,
+  Heading,
   FormControl,
   FormLabel,
-  HStack,
-  Button,
-  Select,
-  Text,
-  Textarea,
-} from '@chakra-ui/react';
+  Center,
+} from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-const Login = () => {
-  const [username, setUsername] = useState(""); 
-  const [password, setPassword] = useState(""); 
-  const [message, setMessage] = useState(""); 
+const LoginAdm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [mostrarSenha, setMostrarSenha] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     console.log("Tentando login com:", { username, password });
 
     try {
@@ -36,13 +40,9 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Salvar o token de autenticação no localStorage
         localStorage.setItem("token", data.token);
-
         setMessage("Login bem-sucedido!");
         console.log("Token recebido:", data.token);
-
-        // Redirecionar para a página inicial
         window.location.href = "http://localhost:5173/";
       } else {
         setMessage(data.error || "Erro ao fazer login");
@@ -55,37 +55,90 @@ const Login = () => {
   };
 
   return (
-    
-    <><Box height="10vh">
-      <Center></Center>
-    </Box><div className="container">
-        <form onSubmit={handleSubmit}>
-          <h1>Acesse o sistema de Administrador</h1>
-          <div className="input-field">
-            <input
-              type="text"
-              placeholder="E-mail"
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)} />
-            <FaUser className="icon" />
-          </div>
-          <div className="input-field">
-            <input
-              type="password"
-              placeholder="Senha"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} />
-            <FaLock className="icon" />
-          </div>
+    <Box bg="#072AC8" minH="100vh" py={10} display="flex" justifyContent="center" alignItems="center">
+      <Container maxW="lg"> {/* Aumentei a largura do container para um layout mais largo */}
+        <Box
+          bg="whiteAlpha.300"
+          p={8}
+          borderRadius="20"
+          boxShadow="lg"
+          backdropFilter="blur(10px)"
+        >
+          <VStack spacing={8}> {/* Aumentei o espaçamento entre os campos */}
+            <Heading color="white" mb={6} textAlign="center" fontSize="28">
+              Acesse o sistema de Administrador
+            </Heading>
 
-          <button className="bg-red" type="submit">Login</button>
-          {message && <p className="message">{message}</p>}
+            <FormControl>
+              <FormLabel color="white">E-mail</FormLabel>
+              <InputGroup>
+                <InputLeftElement>
+                  <FaUser color="white" />
+                </InputLeftElement>
+                <Input
+                  type="email"
+                  placeholder="E-mail"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  bg="whiteAlpha.100"
+                  color="white"
+                  border="2px solid rgba(255, 255, 255, 0.2)"
+                  borderRadius="40px"
+                  _placeholder={{ color: "whiteAlpha.700" }}
+                  py={6}
+                  px={4}
+                  w="100%" // Ajustei para 100% da largura
+                />
+              </InputGroup>
+            </FormControl>
 
-        </form>
-      </div></>
+            <FormControl>
+              <FormLabel color="white">Senha</FormLabel>
+              <InputGroup>
+                <Input
+                  type={mostrarSenha ? 'text' : 'password'}
+                  placeholder="Senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  bg="whiteAlpha.100"
+                  color="white"
+                  border="2px solid rgba(255, 255, 255, 0.2)"
+                  borderRadius="40px"
+                  _placeholder={{ color: 'whiteAlpha.700' }}
+                  py={6}
+                  px={4}
+                  w="100%" // Ajustei para 100% da largura
+                />
+                <InputRightElement h="full" pr={4}>
+                  <IconButton
+                    icon={mostrarSenha ? <ViewOffIcon /> : <ViewIcon />}
+                    variant="ghost"
+                    onClick={() => setMostrarSenha(!mostrarSenha)}
+                    color="white"
+                    _hover={{ bg: 'whiteAlpha.200' }}
+                  />
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+
+            <Button
+              w="100%"  // Ajustei para 100% da largura
+              bg="white"
+              color="blue.600"
+              _hover={{ bg: "whiteAlpha.900" }}
+              onClick={handleSubmit}
+              borderRadius="40px"
+            >
+              Login
+            </Button>
+
+            {message && <Text color="white" textAlign="center" mt={4}>{message}</Text>} {/* Exibição da mensagem de erro ou sucesso */}
+
+          </VStack>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
-export default Login;
+export default LoginAdm;
