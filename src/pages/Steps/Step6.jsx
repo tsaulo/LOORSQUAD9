@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Flex,
@@ -12,28 +12,54 @@ import {
   Textarea,
   Tooltip,
 } from '@chakra-ui/react';
-
 import { useNavigate } from 'react-router-dom';
 
 function Step6() {
   const [mercado, setMercado] = useState('');
   const [concorrentes, setConcorrentes] = useState('');
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(6);
 
   const navigate = useNavigate();
 
-  // Função para enviar os dados para o backend
+  useEffect(() => {
+    const currentStep = localStorage.getItem('currentStep');
+    if (currentStep && Number(currentStep) > 6) {
+      navigate(`/Step${currentStep}`);
+    }
+    focusLastField();
+  }, []);
+
+  const handleFocus = (event) => {
+    const id = event.target.id;
+    if (id) {
+      localStorage.setItem('lastFocusedField', id);
+    }
+  };
+
+  const focusLastField = () => {
+    const lastFocusedField = localStorage.getItem('lastFocusedField');
+    if (lastFocusedField) {
+      const field = document.getElementById(lastFocusedField);
+      if (field) {
+        field.focus();
+      }
+    }
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://127.0.0.1:3333/formulario/step6', {
-        usuario_id: 1, // Substitua pelo ID do usuário real
+      const data = {
+        usuario_id: 1, // Substituir pelo ID real do usuário
         tam_sam_som: mercado,
-        concorrentes: concorrentes,
-      });
+        concorrentes,
+      };
 
+      console.log('Dados a serem enviados:', data);
+      const response = await axios.post('http://127.0.0.1:3333/formulario/step6', data);
       console.log('Step 6 salvo com sucesso:', response.data);
+      
+      localStorage.setItem('currentStep', 7); // Atualiza o step no localStorage
       navigate('/Step7'); // Avança para o próximo passo
     } catch (error) {
       console.error('Erro ao salvar Step 6:', error.response?.data || error.message);
@@ -43,7 +69,6 @@ function Step6() {
     }
   };
 
-  // Navega para o passo anterior
   const prevStep = () => {
     navigate('/Step5');
   };
@@ -112,18 +137,22 @@ function Step6() {
                 </Tooltip>
               </FormLabel>
               <Textarea
+                id="mercado"
                 placeholder="Exemplo: TAM - X bilhões, SAM - Y milhões, SOM - Z milhões"
                 value={mercado}
                 onChange={(e) => setMercado(e.target.value)}
+                onFocus={handleFocus}
               />
             </Box>
 
             <Box width="100%">
               <FormLabel>Liste seus principais concorrentes</FormLabel>
               <Textarea
+                id="concorrentes"
                 placeholder="Exemplo: Empresa A, Empresa B, Empresa C..."
                 value={concorrentes}
                 onChange={(e) => setConcorrentes(e.target.value)}
+                onFocus={handleFocus}
               />
             </Box>
 

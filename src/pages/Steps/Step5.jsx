@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Flex,
@@ -14,18 +14,40 @@ import {
   RadioGroup,
   Radio,
 } from '@chakra-ui/react';
-
 import { useNavigate } from 'react-router-dom';
 
 function Step5() {
-  // Variáveis de estado para step 5
   const [tecnologias, setTecnologias] = useState('');
   const [impactoTecnologias, setImpactoTecnologias] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  // Atualiza o impacto das tecnologias
+  useEffect(() => {
+    const currentStep = localStorage.getItem('currentStep');
+    if (currentStep && Number(currentStep) > 5) {
+      navigate(`/Step${currentStep}`);
+    }
+    focusLastField();
+  }, []);
+
+  const handleFocus = (event) => {
+    const id = event.target.id;
+    if (id) {
+      localStorage.setItem('lastFocusedField', id);
+    }
+  };
+
+  const focusLastField = () => {
+    const lastFocusedField = localStorage.getItem('lastFocusedField');
+    if (lastFocusedField) {
+      const field = document.getElementById(lastFocusedField);
+      if (field) {
+        field.focus();
+      }
+    }
+  };
+
   const handleImpactoTecnologiasChange = (index, value) => {
     setImpactoTecnologias((prev) => {
       const novoImpacto = [...prev];
@@ -34,17 +56,20 @@ function Step5() {
     });
   };
 
-  // Envia os dados para o backend
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://127.0.0.1:3333/steps/step5', {
+      const data = {
         usuario_id: 1,
         tecnologias,
         impacto_tecnologias: impactoTecnologias,
-      });
+      };
 
+      console.log('Dados a serem enviados:', data);
+      const response = await axios.post('http://127.0.0.1:3333/steps/step5', data);
       console.log('Step 5 salvo com sucesso:', response.data);
+      
+      localStorage.setItem('currentStep', 6); // Atualiza o step
       navigate('/Step6'); // Avança para o próximo passo
     } catch (error) {
       console.error('Erro ao salvar Step 5:', error.response?.data || error.message);
@@ -52,6 +77,10 @@ function Step5() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const prevStep = () => {
+    navigate('/Step4');
   };
 
   return (
@@ -88,9 +117,11 @@ function Step5() {
             <Box width="100%">
               <FormLabel>Liste as 5 principais tecnologias desenvolvidas e utilizadas em seu modelo de negócios.</FormLabel>
               <Textarea
+                id="tecnologias"
                 placeholder="Exemplo: Inteligência Artificial, Blockchain, Machine Learning..."
                 value={tecnologias}
                 onChange={(e) => setTecnologias(e.target.value)}
+                onFocus={handleFocus}
               />
             </Box>
 
@@ -126,7 +157,7 @@ function Step5() {
 
             <HStack spacing="4" marginTop={4}>
               <Button
-                onClick={() => navigate('/Step4')}
+                onClick={prevStep}
                 bg="blue"
                 color="white"
                 _hover={{ bg: "white", color: "blue", border: "2px solid blue" }}
