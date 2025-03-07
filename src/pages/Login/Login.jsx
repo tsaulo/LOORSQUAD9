@@ -69,7 +69,7 @@ const LoginPage = () => {
         >
           <VStack spacing={8}>
             <Heading color="white" mb={6} textAlign="center" fontSize="28">
-              Acesse o sistema
+              Acesse o sistemaa
             </Heading>
 
             <InputGroup>
