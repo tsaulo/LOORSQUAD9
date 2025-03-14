@@ -53,7 +53,7 @@ function InvestorReportView({ id, onBack }) {
     }
 
     try {
-      const response = await axios.get(`http://127.0.0.1:51676/investor-reports`);
+      const response = await axios.get(`http://127.0.0.1:3333/investor-reports`);
       const data = response.data;
       
       // Encontrando o item específico pelo ID
@@ -78,7 +78,7 @@ function InvestorReportView({ id, onBack }) {
     }
 
     try {
-      const responseGraficos = await axios.get(`http://127.0.0.1:51676/investor-reports/2`);
+      const responseGraficos = await axios.get(`http://127.0.0.1:3333/investor-reports/2`);
       setGraficos({
         mrr: responseGraficos.data.map(item => item.mrr),
         faturamento: responseGraficos.data.map(item => item.faturamento),

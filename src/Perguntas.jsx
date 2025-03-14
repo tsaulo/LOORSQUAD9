@@ -101,7 +101,7 @@ const Perguntas = () => {
           fontWeight: "700",
         }}
       >
-        Selecionar Perguntas
+        Marque os intens que merecem ser atualizados, desde o seu último preenchimento: 
       </h1>
       <p style={{ marginBottom: "16px", color: "#4A5568", fontSize: "16px" }}>
         Marque as perguntas que deseja responder e clique em "Gerar Formulário".

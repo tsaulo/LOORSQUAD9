@@ -12,6 +12,7 @@ function Step1() {
   const [anoFundacao, setAnoFundacao] = useState('');
   const [cidade, setCidade] = useState('');
   const [usuarioId, setUsuarioId] = useState(null);
+  const [imagem, setImagem] = useState(null);
 
   useEffect(() => {
     const storedUsuarioId = localStorage.getItem('usuario_id');
@@ -32,18 +33,22 @@ function Step1() {
   const sendStep1Data = async () => {
     try {
       const token = getToken();
+      const formData = new FormData();
+      formData.append('nome', nome);
+      formData.append('site', site);
+      formData.append('linkedin', linkedin);
+      formData.append('ano_fundacao', anoFundacao.split('-')[0]);
+      formData.append('cidade', cidade);
+      formData.append('usuario_id', usuarioId);
+      if (imagem) {
+        formData.append('imagem', imagem);
+      }
+
       await axios.post(
         'http://127.0.0.1:3333/formulario/save-step1',
+        formData,
         {
-          nome,
-          site,
-          linkedin,
-          ano_fundacao: anoFundacao.split('-')[0],
-          cidade,
-          usuario_id: usuarioId
-        },
-        {
-          headers: token ? { Authorization: `Bearer ${token}` } : {},
+          headers: token ? { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } : {},
         }
       );
     } catch (error) {
@@ -106,16 +111,21 @@ function Step1() {
               </Select>
             </Box>
 
+            <Box width="100%">
+              <FormLabel htmlFor="imagem">Upload de Imagem</FormLabel>
+              <Input id="imagem" type="file" accept="image/*" onChange={(e) => setImagem(e.target.files[0])} />
+            </Box>
+
             <Button
-            marginTop={4}
-            colorScheme="teal"
-            onClick={nextStep}
-            bg="blue"
-            color="white"
-            _hover={{ bg: "white", color: "blue", border: "2px solid blue" }}
-          >
-            Próximo
-          </Button>
+              marginTop={4}
+              colorScheme="teal"
+              onClick={nextStep}
+              bg="blue"
+              color="white"
+              _hover={{ bg: "white", color: "blue", border: "2px solid blue" }}
+            >
+              Próximo
+            </Button>
           </FormControl>
         </Center>
       </Flex>

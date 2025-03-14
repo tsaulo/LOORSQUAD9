@@ -54,7 +54,7 @@ function App() {
   // Função para atualizar o status
   const atualizarStatus = async (novoStatus) => {
     try {
-      const response = await axios.put(`http://127.0.0.1:51676/status/${usuarioId}`, {
+      const response = await axios.put(`http://127.0.0.1:3333/status/${usuarioId}`, {
         status: novoStatus
       });
 
@@ -70,7 +70,7 @@ function App() {
   useEffect(() => {
     const buscarStatus = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:51676/status/${usuarioId}`);
+        const response = await axios.get(`http://127.0.0.1:3333/status/${usuarioId}`);
         if (response.data && response.data.status) {
           setStatus(response.data.status);
           console.log('Status atual do formulário:', response.data.status);
