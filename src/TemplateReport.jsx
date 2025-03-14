@@ -26,7 +26,7 @@ function InvestorReportView({ id, onBack }) {
     faturamento: '',
     despesas: '',
     caixa: '',
-    cashBurn: '',
+    cash_burn: '',
     runway: '',
     valuation: '',
     clientes: '',
@@ -53,9 +53,20 @@ function InvestorReportView({ id, onBack }) {
     }
 
     try {
-      const response = await axios.get(`http://localhost:3000/formulario/form_investorreport/${id}`);
-      setDados(response.data || {});
+      const response = await axios.get(`http://127.0.0.1:51676/investor-reports`);
+      const data = response.data;
+      
+      // Encontrando o item específico pelo ID
+      const item = data.find(entry => entry.id === id);
+      
+      if (item) {
+        setDados(item);
+      } else {
+        
+        setError('Nenhum dado encontrado para este ID.');
+      }
     } catch (err) {
+      console.error('Erro na API:', err.response?.data?.error || err.message);
       setError(err.response?.data?.error || 'Erro ao buscar dados.');
     }
   };
@@ -67,7 +78,7 @@ function InvestorReportView({ id, onBack }) {
     }
 
     try {
-      const responseGraficos = await axios.get(`http://localhost:3000/formulario/getGraficos/${id}`);
+      const responseGraficos = await axios.get(`http://127.0.0.1:51676/investor-reports/2`);
       setGraficos({
         mrr: responseGraficos.data.map(item => item.mrr),
         faturamento: responseGraficos.data.map(item => item.faturamento),
@@ -178,7 +189,7 @@ function InvestorReportView({ id, onBack }) {
           </Box>
           <Box>
             <Text fontSize="md" fontWeight="bold" mb={2} color="#072AC8">CASH BURN</Text>
-            <Box bg="gray.200" p={2} borderRadius="md">{dados.cashBurn || 'N/A'}</Box>
+            <Box bg="gray.200" p={2} borderRadius="md">{dados.cash_burn || 'N/A'}</Box>
           </Box>
           <Box>
             <Text fontSize="md" fontWeight="bold" mb={2} color="#072AC8">RUNWAY</Text>

@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email:', email, 'Senha:', senha);
+    
 
     try {
       const response = await fetch('http://127.0.0.1:3333/login', {
@@ -41,8 +41,7 @@ const LoginPage = () => {
         localStorage.setItem('usuario_id', data.userId);
 
         setMessage('Login bem-sucedido!');
-        console.log('Token recebido:', data.token);
-        console.log('Usuário ID:', data.userId);
+        
 
         // ✅ Redireciona após salvar os dados
         navigate('/Step1');

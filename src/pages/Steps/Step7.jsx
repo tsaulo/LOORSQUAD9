@@ -133,6 +133,7 @@ function Step7() {
           boxShadow="0 1px 2px #ccc"
         >
           <FormControl display="flex" flexDirection="column" gap="4">
+          <HStack>
             <Box width="100%">
               <FormLabel>Qual sua principal fonte de receita?</FormLabel>
               <Textarea
@@ -153,7 +154,9 @@ function Step7() {
                 </HStack>
               </RadioGroup>
             </Box>
+            </HStack>
 
+            <HStack>
             <Box width="100%">
               <FormLabel>Qual seu MRR?</FormLabel>
               <Select
@@ -206,7 +209,9 @@ function Step7() {
                     <option value="+1MM">+R$ 1MM</option>
               </Select>
             </Box>
+            </HStack>
 
+            <HStack spacing="4">
             <Box width="100%">
               <FormLabel>Qual seu ticket médio?</FormLabel>
               <Textarea
@@ -234,6 +239,7 @@ function Step7() {
                 ))}
               </Select>
             </Box>
+            </HStack>
 
             <HStack spacing="4">
               <Box width="50%">
