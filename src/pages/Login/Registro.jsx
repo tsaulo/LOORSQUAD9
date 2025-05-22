@@ -1,6 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Box, Button, Input, FormControl, FormLabel, Text, VStack, useToast, Container } from "@chakra-ui/react";
+import {
+  Box,
+  Input,
+  Button,
+  VStack,
+  Text,
+  Link,
+  Container,
+  InputGroup,
+  InputRightElement,
+  IconButton,
+  Heading,
+  FormControl, 
+  FormLabel,
+  useToast
+} from '@chakra-ui/react';
+import './Login.css';
 
 const Registro = () => {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -47,20 +62,15 @@ const Registro = () => {
   };
 
   return (
-    <Box bg="#072AC8" minHeight="100vh" py={10} display="flex" justifyContent="center" alignItems="center">
-      <Container maxW="lg"> {/* Aumentei a largura do container */}
-        <Box
-          bg="whiteAlpha.300"
-          p={8}
-          borderRadius="20"
-          boxShadow="lg"
-          backdropFilter="blur(10px)"
-        >
-          <VStack spacing={8}> {/* Aumentei o spacing entre os campos */}
-            <Text fontSize="2xl" color="white" textAlign="center" mb="6">
+    <Box className="fundo"> {/* SQUAD 9: classes em css */}
+      <Container maxW="55rem"> {/* Aumentei a largura do container */}
+        <Box className="caixaPrincipal">
+          <Text fontSize="3rem" fontWeight={"bold"} padding={"1.5rem"} mb="6">
               Crie sua conta
             </Text>
 
+          <VStack spacing={9}> {/* Aumentei o spacing entre os campos */}
+            
             <FormControl isRequired>
               <Input
                 id="nomeCompleto"
@@ -68,14 +78,12 @@ const Registro = () => {
                 placeholder="Nome Completo"
                 value={nomeCompleto}
                 onChange={(e) => setNomeCompleto(e.target.value)}
-                bg="whiteAlpha.100"
-                color="white"
-                border="2px solid rgba(255, 255, 255, 0.2)"
+                className="campos"
+                bg="whiteAlpha.200"
+                border="2px solid rgba(255, 255, 255, 0.5)"
                 borderRadius="40px"
-                _placeholder={{ color: 'whiteAlpha.900' }}
-                py={6}
-                px={4}
-                w="100%"  // Ajustei para 100% da largura
+                
+                // Ajustei para 100% da largura
               />
             </FormControl>
 
@@ -86,14 +94,10 @@ const Registro = () => {
                 placeholder="Número de Telefone"
                 value={numeroTelefone}
                 onChange={handlePhoneChange}
-                bg="whiteAlpha.100"
-                color="white"
-                border="2px solid rgba(255, 255, 255, 0.2)"
-                borderRadius="40px"
-                _placeholder={{ color: 'whiteAlpha.900' }}
-                py={6}
-                px={4}
-                w="100%"  // Ajustei para 100% da largura
+                className="campos"
+                bg="whiteAlpha.200"
+                border="2px solid rgba(255, 255, 255, 0.5)"
+                borderRadius="40px"  // Ajustei para 100% da largura
               />
             </FormControl>
 
@@ -104,14 +108,10 @@ const Registro = () => {
                 placeholder="E-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                bg="whiteAlpha.100"
-                color="white"
-                border="2px solid rgba(255, 255, 255, 0.2)"
-                borderRadius="40px"
-                _placeholder={{ color: 'whiteAlpha.900' }}
-                py={6}
-                px={4}
-                w="100%"  // Ajustei para 100% da largura
+                className="campos"
+                bg="whiteAlpha.200"
+                border="2px solid rgba(255, 255, 255, 0.5)"
+                borderRadius="40px"  // Ajustei para 100% da largura
               />
             </FormControl>
 
@@ -122,42 +122,37 @@ const Registro = () => {
                 placeholder="Senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                bg="whiteAlpha.100"
-                color="white"
-                border="2px solid rgba(255, 255, 255, 0.2)"
-                borderRadius="40px"
-                _placeholder={{ color: 'whiteAlpha.900' }}
-                py={6}
-                px={4}
-                w="100%"  // Ajustei para 100% da largura
+                className="campos"
+                bg="whiteAlpha.200"
+                border="2px solid rgba(255, 255, 255, 0.5)"
+                borderRadius="40px"  // Ajustei para 100% da largura
               />
             </FormControl>
 
-            <Button
-              w="100%"  // Alinhei o botão para ocupar a largura total
-              bg="white"  // Fundo branco
-              color="black"  // Texto preto
-              _hover={{ bg: 'gray.100' }}  // Efeito de hover com fundo cinza claro
+          </VStack>
+
+          <Button
+              p={"1.5rem"}
+              mt={"3rem"}
+              w="30%"  // Alinhei o botão para ocupar a largura total
+              bg= "#FAF9F6"  // Fundo branco
+              color="#072AC8"  // Texto preto
+              _hover={{ bg: "#e5e5e5" }}  // Efeito de hover com fundo cinza claro
               onClick={handleSubmit}
               borderRadius="40px"
+              fontWeight={"bold"}
             >
               Registrar
             </Button>
 
-            {message && <Text color="white" mt="4" textAlign="center">{message}</Text>}
+            {message && <Text color="red" fontWeight={"bold"} m="10" textAlign="center">{message}</Text>}
 
-            <Text mt="4" fontSize="sm" color="white" textAlign="center">
-              Já tem uma conta?{" "}
-              <Link
-                href="/"
-                color="white"
-                fontWeight="bold"
-                _hover={{ textDecoration: 'underline', color: 'gray.300' }} // Efeito underline e mudança de cor no hover
-              >
-                Faça login
+            <Text color="white" mt={"2rem"} textAlign="center">
+              Já possui uma conta?{' '}
+              <Link href="/" color="white" fontWeight="bold" _hover={{ textDecoration: 'underline' }}>
+                Faça Login
               </Link>
             </Text>
-          </VStack>
         </Box>
       </Container>
     </Box>

@@ -3,6 +3,7 @@ import {
   Box,
   Input,
   Button,
+  Flex,
   VStack,
   Text,
   Link,
@@ -11,9 +12,12 @@ import {
   InputRightElement,
   IconButton,
   Heading,
+  FormControl,
+  useToast
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -21,6 +25,7 @@ const LoginPage = () => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,83 +55,122 @@ const LoginPage = () => {
         console.error('Erro na resposta do servidor:', data);
       }
     } catch (error) {
-      setMessage('Erro na conexão com o servidor');
-      console.error('Erro:', error);
+      setMessage("Erro na conexão com o servidor");
+      toast({ title: "Erro de conexão", status: "error", duration: 3000 });
+      console.error("Erro:", error);
     }
   };
 
-  return (
-    <Box bg="#072AC8" minH="100vh" py={10} display="flex" justifyContent="center" alignItems="center">
-      <Container maxW="lg">
-        <Box bg="whiteAlpha.300" p={8} borderRadius="20" boxShadow="lg" backdropFilter="blur(10px)">
-          <VStack spacing={8}>
-            <Heading color="white" mb={6} textAlign="center" fontSize="28">
-              Acesse o sistema
-            </Heading>
+   const handleEsqueciSenha = () => {
+    toast({
+      title: "Recuperação de Senha",
+      description: "Um link de recuperação será enviado para o seu e-mail.",
+      status: "info",
+      duration: 3000,
+      isClosable: true,
+    });
+    console.log("Esqueci minha senha clicado!");
+  };
 
-            <InputGroup>
+  return (
+    <Box className="fundo">
+      <Container maxW="55rem">
+        <Box className="caixaPrincipal">
+          <Text fontSize="3rem" fontWeight={"bold"} padding={"1.5rem"} textAlign="center" mb="6">
+                        Bem-vindo ao Investor Report
+                      </Text>
+          <VStack spacing={8}>
+        
+            <FormControl>
               <Input
                 type="email"
                 placeholder="E-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                bg="whiteAlpha.100"
-                color="white"
-                border="2px solid rgba(255, 255, 255, 0.2)"
+                className="campos"
+                bg="whiteAlpha.200"
+                border="2px solid rgba(255, 255, 255, 0.5)"
                 borderRadius="40px"
-                _placeholder={{ color: 'whiteAlpha.700' }}
-                py={6}
-                px={4}
-                w="100%"
               />
-            </InputGroup>
+            </FormControl>
 
-            <InputGroup>
+            <FormControl>
+              <div style={{ position: 'relative' }}>
               <Input
                 type={mostrarSenha ? 'text' : 'password'}
                 placeholder="Senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                bg="whiteAlpha.100"
-                color="white"
-                border="2px solid rgba(255, 255, 255, 0.2)"
+               className="campos"
+                bg="whiteAlpha.200"
+                border="2px solid rgba(255, 255, 255, 0.5)"
                 borderRadius="40px"
-                _placeholder={{ color: 'whiteAlpha.700' }}
-                py={6}
-                px={4}
-                w="100%"
               />
-              <InputRightElement h="full" pr={4}>
-                <IconButton
-                  icon={mostrarSenha ? <ViewOffIcon /> : <ViewIcon />}
-                  variant="ghost"
-                  onClick={() => setMostrarSenha(!mostrarSenha)}
-                  color="white"
-                  _hover={{ bg: 'whiteAlpha.200' }}
-                />
-              </InputRightElement>
-            </InputGroup>
+<IconButton
+          icon={mostrarSenha ? <ViewOffIcon /> : <ViewIcon />}
+          variant="ghost"
+          onClick={() => setMostrarSenha(!mostrarSenha)}
+          color="white"
+          _hover={{ bg: 'whiteAlpha.200' }}
+          aria-label={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
+          // Estilos para posicionamento absoluto
+          style={{
+            position: 'absolute',
+            right: '5.5rem', // Ajuste conforme necessário (pr do InputRightElement é 4, que é 1rem)
+            top: '50%',
+            transform: 'translateY(-50%)',
+            height: 'full', // Ou ajuste para um valor fixo se preferir
+            width: '3rem', // Largura do botão para ajudar no pr
+          }}
+        />
+              </div>
 
-            <Button
-              w="100%"
-              bg="white"
-              color="blue.600"
-              _hover={{ bg: 'whiteAlpha.900' }}
+
+              <Flex justify="flex-start" ml={20} mt={4}> 
+                <Text // botao apenas visual
+                  as="button"
+                  onClick={handleEsqueciSenha}
+                  color="white" 
+                  _hover={{ textDecoration: 'underline', color: 'gray.200' }} // Efeito de hover
+                  fontSize="sm" 
+                  fontWeight="bold"
+                  bg="transparent"
+                  border="none" 
+                  cursor="pointer"
+                  p={0} 
+                >
+                  Esqueci minha senha
+                </Text>
+              </Flex>
+              
+            </FormControl>
+            
+
+            
+          </VStack>
+
+          <Button
+              p={"1.5rem"}
+              mt={"3rem"}
+              w="30%"  // Alinhei o botão para ocupar a largura total
+              bg= "#FAF9F6"  // Fundo branco
+              color="#04124f"  // Texto 
+              _hover={{ bg: "#e5e5e5" }}  // Efeito de hover com fundo cinza claro
               onClick={handleSubmit}
               borderRadius="40px"
+              fontWeight={"bold"}
             >
               Login
             </Button>
 
-            {message && <Text color="white" mt={4} textAlign="center">{message}</Text>}
+            {message && <Text color="red" mt={4} fontWeight={"bold"} textAlign="center">{message}</Text>}
 
             <Text color="white" mt={4} textAlign="center">
               Não tem uma conta?{' '}
-              <Link href="#" color="white" fontWeight="bold" _hover={{ textDecoration: 'underline' }}>
+              <Link href="registro" color="white" fontWeight="bold" _hover={{ textDecoration: 'underline' }}>
                 Cadastre-se
               </Link>
             </Text>
-          </VStack>
         </Box>
       </Container>
     </Box>
