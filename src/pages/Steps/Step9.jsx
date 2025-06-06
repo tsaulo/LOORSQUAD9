@@ -87,7 +87,7 @@ function App() {
   if (selectedId) {
 
     return <Template id={selectedId} onBack={handleBack} />;
-    console.log('ID do usuário sendo essssssssssssssssssssnviado:', selectedId);
+    console.log('ID do usuário sendo enviado:', selectedId);
   }
   return (
     <Box className="fundo">
@@ -127,7 +127,7 @@ function App() {
                           step === 9 ? '' : ''}
                           </Text>
                           </Box>
-              <Center flexDirection="column" textAlign="center" bg="#4561d144" p={24} >
+              <Center flexDirection="column" textAlign="center" bg="#4561d144" color="#0e29a1" p={24} >
               
               <Flex flexDirection="row" justifyContent="space-around" width="100%">
               <Box bg="rgba(0, 0, 0, 0.33)" p={2} borderRadius={16} fontWeight="bold">Envio:</Box>
