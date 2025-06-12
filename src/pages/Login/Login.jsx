@@ -58,6 +58,8 @@ const LoginPage = () => {
         <Box
             class="login-bg"
             bg="#2b247b"
+            bgImage="url('https://cdn.svgator.com/images/2022/06/use-svg-as-background-image-particle-strokes.svg')"
+            bgBlendMode="overlay"
             minH="100vh"
             py={10}
             display="flex"
