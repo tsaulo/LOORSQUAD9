@@ -57,15 +57,19 @@ const LoginPage = () => {
 
     return (
         <Box
-            bg="#2b247b"
             bgImage="url('https://cdn.svgator.com/images/2022/06/use-svg-as-background-image-particle-strokes.svg')"
+            // Cor das bolhas no evento de um erro
+            // bgColor="rgba(146, 5, 9, 0.7)"
+            // bgColor="rgba(95, 156, 72, 0.5)"
+            bgColor="rgba(43, 36, 123, 0.5)"
             bgBlendMode="overlay"
             minH="100vh"
             py={10}
             display="flex"
             justifyContent="center"
             alignItems="center">
-            <AlertComp display="none" z-index="999" position="fixed" />
+            {/* <AlertComp /> */}
+
             <Container maxW="600">
                 <Box
                     bg="rgba(162, 194, 255, 0.27)"
