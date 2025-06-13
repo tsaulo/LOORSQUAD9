@@ -162,7 +162,7 @@ const LoginPage = () => {
                         <Text color="white" mt={4} textAlign="center">
                             Não tem uma conta?{" "}
                             <Link
-                                href="#"
+                                href="registro"
                                 color="white"
                                 fontWeight="bold"
                                 _hover={{ textDecoration: "underline" }}>
