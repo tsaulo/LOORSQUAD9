@@ -35,7 +35,12 @@ const FormularioPerguntas = () => {
       return;
     }
 
-    try {
+
+  
+
+
+
+try {
       const usuario_id = "2";
       setUsuarioId(usuario_id);
 
@@ -59,6 +64,8 @@ const FormularioPerguntas = () => {
       setErro("Erro interno ao tentar enviar as respostas.");
     }
   };
+
+
 
   const handlePopupClose = () => {
     setShowPopup(false);

@@ -1,0 +1,39 @@
+HTML{
+    font-size: large;
+}
+
+.fundo{
+    background-color: #04124f;
+    min-height: 100vh;
+    display: flex;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    justify-content: center; 
+    align-items: center;
+    color:#0e29a144 ;
+}
+
+.caixaPrincipal{
+    background-color: #4561de3d;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: large;
+    backdrop-filter: blur(10px);
+    text-align: center;
+    color: #FAF9F6;
+    box-shadow: rgba(0, 0, 0, 0.33) 0px 20px 40px;
+}
+
+.campos{
+    color: #FAF9F6;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 80%;
+}
+.campos::placeholder{
+    color:  rgba(255, 255, 255, 0.9);
+
+}
+
