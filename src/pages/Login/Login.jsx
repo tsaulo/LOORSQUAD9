@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AlertComp from "./Alert.jsx";
 import {
     Box,
     Input,
@@ -56,7 +57,6 @@ const LoginPage = () => {
 
     return (
         <Box
-            class="login-bg"
             bg="#2b247b"
             bgImage="url('https://cdn.svgator.com/images/2022/06/use-svg-as-background-image-particle-strokes.svg')"
             bgBlendMode="overlay"
@@ -65,7 +65,8 @@ const LoginPage = () => {
             display="flex"
             justifyContent="center"
             alignItems="center">
-            <Container class="login-container" maxW="600">
+            <AlertComp display="none" z-index="999" position="fixed" />
+            <Container maxW="600">
                 <Box
                     bg="rgba(162, 194, 255, 0.27)"
                     p={8}
