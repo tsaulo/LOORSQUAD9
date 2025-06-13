@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AlertComp from "./Alert.jsx";
+import AlertComp from "./AlertComp.jsx";
 import {
     Box,
     Input,
@@ -22,6 +22,7 @@ const LoginPage = () => {
     const [senha, setSenha] = useState("");
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [message, setMessage] = useState("");
+    const [hasError, setError] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -46,10 +47,13 @@ const LoginPage = () => {
                 // ✅ Redireciona após salvar os dados
                 navigate("/Step1");
             } else {
+                hasError = true;
+
                 setMessage(data.error || "Erro ao fazer login");
                 console.error("Erro na resposta do servidor:", data);
             }
         } catch (error) {
+            setError(true);
             setMessage("Erro na conexão com o servidor");
             console.error("Erro:", error);
         }
@@ -61,22 +65,24 @@ const LoginPage = () => {
             // Cor das bolhas no evento de um erro
             // bgColor="rgba(146, 5, 9, 0.7)"
             // bgColor="rgba(95, 156, 72, 0.5)"
-            bgColor="rgba(43, 36, 123, 0.5)"
+            bgColor={
+                !hasError ? "rgba(43, 36, 123, 0.5)" : "rgba(146, 5, 9, 0.7)"
+            }
             bgBlendMode="overlay"
             minH="100vh"
             py={10}
             display="flex"
             justifyContent="center"
-            alignItems="center">
-            {/* <AlertComp /> */}
-
+            alignItems="center"
+            transition="all 0.5s ease-in-out">
+            {hasError ? <AlertComp /> : null}
             <Container maxW="600">
                 <Box
-                    bg="rgba(162, 194, 255, 0.27)"
+                    bg="rgba(170, 184, 223, 0.16);"
                     p={8}
                     borderRadius="10"
-                    boxShadow="0 4px 30px rgba(0, 0, 0, 0.1)"
-                    backdropFilter="blur(4.1px)">
+                    boxShadow="0 8px 16px 0 rgba(42, 42, 46, 0.2)"
+                    backdropFilter="blur(8px)">
                     <VStack spacing={8}>
                         <Heading
                             color="white"
