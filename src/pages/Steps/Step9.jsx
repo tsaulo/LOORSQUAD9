@@ -98,12 +98,14 @@ function App() {
         );
     }
     return (
-        <Box height="10vh">
+        <Box
+            minH="100vh"
+            bgBlendMode="overlay"
+            bgColor="rgba(43, 36, 123, 0.5)"
+            bgImage="url('https://cdn.svgator.com/images/2022/06/use-svg-as-background-image-particle-strokes.svg')">
             <Center
                 as="header"
                 height={176}
-                bgImage="url('https://cdn.svgator.com/images/2022/06/use-svg-as-background-image-particle-strokes.svg')"
-                bgColor="rgba(43, 36, 123, 0.5)"
                 color="white"
                 fontWeight="bold"
                 fontSize="4xl"

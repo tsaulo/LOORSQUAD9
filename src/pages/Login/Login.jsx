@@ -22,7 +22,7 @@ const LoginPage = () => {
     const [senha, setSenha] = useState("");
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [message, setMessage] = useState("");
-    const [hasError, setError] = useState(false);
+    let [hasError, setError] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
