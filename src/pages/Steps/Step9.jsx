@@ -3,6 +3,7 @@ import {
     Flex,
     Box,
     Center,
+    Tag,
     FormControl,
     Divider,
     Input,
@@ -136,6 +137,7 @@ function App() {
             </Center>
 
             <Flex
+                borderRadius={8}
                 align="center"
                 justify="center"
                 bg="blackAlpha.200"
@@ -146,20 +148,21 @@ function App() {
                     bg="white"
                     top={120}
                     position="absolute"
-                    borderRadius={5}
+                    borderRadius={8}
                     padding="6"
-                    boxShadow="0 1px 2px #ccc">
+                    backdropFilter="blur(8px)"
+                    boxShadow="0 8px 16px 0 rgba(42, 42, 46, 0.2)">
                     {step === 9 && (
                         <Box position="relative" minHeight="20vh" bg="#fff">
                             <Center
                                 flexDirection="column"
                                 textAlign="center"
-                                bg="#fff"
+                                bg="#d8f8fe"
                                 p={4}
                                 borderRadius={8}
                                 boxShadow="md">
                                 <CheckIcon color="#072AC8" boxSize={12} />
-                                <Text
+                                {/* <Text
                                     fontSize="2xl"
                                     fontWeight="bold"
                                     color="#072AC8"
@@ -169,7 +172,19 @@ function App() {
                                 <Text fontSize="lg" mt={4}>
                                     Seu formulário foi enviado com sucesso.
                                     Nossa equipe entrará em contato em breve.
-                                </Text>
+                                </Text> */}
+
+                                <Flex direction="row">
+                                    <Tag m={4} p={4}>
+                                        Data do envio: {}
+                                    </Tag>
+                                    <Tag m={4} p={4}>
+                                        Status: {status}
+                                    </Tag>
+                                    <Tag m={4} p={4}>
+                                        ID: {usuarioId}
+                                    </Tag>
+                                </Flex>
 
                                 {/* Status Tracker */}
                                 <Box mt={8} width="100%" maxWidth="600px">
