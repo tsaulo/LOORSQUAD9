@@ -38,6 +38,19 @@ function App() {
     const [selectedId, setSelectedId] = useState(null);
     const navigate = useNavigate();
 
+    const getCurrentDate = () => {
+        const date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+
+        // This arrangement can be altered based on how we want the date's format to appear.
+        let currentDate = `${day}/${month}/${year} às ${date.getHours()}:${date.getMinutes()}`;
+
+        let time;
+        return currentDate;
+    };
+
     const handleVerMais = (usuarioId) => {
         setSelectedId(Number(usuarioId));
     };
@@ -175,14 +188,14 @@ function App() {
                                 </Text> */}
 
                                 <Flex direction="row">
-                                    <Tag m={4} p={4}>
-                                        Data do envio: {}
+                                    <Tag bgColor="white" m={4} p={4}>
+                                        Data do envio: {getCurrentDate()}
                                     </Tag>
-                                    <Tag m={4} p={4}>
+                                    <Tag bgColor="white" m={4} p={4}>
                                         Status: {status}
                                     </Tag>
-                                    <Tag m={4} p={4}>
-                                        ID: {usuarioId}
+                                    <Tag bgColor="white" m={4} p={4}>
+                                        ID: #{usuarioId}
                                     </Tag>
                                 </Flex>
 
