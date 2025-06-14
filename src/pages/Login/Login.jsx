@@ -146,7 +146,7 @@ const LoginPage = () => {
                         <Button
                             w="100%"
                             bg="#2b247b"
-                            color="white"
+                            color="whiteAlpha.900"
                             _hover={{ bg: "whiteAlpha.900", color: "#2b247b" }}
                             onClick={handleSubmit}
                             borderRadius="10px">
